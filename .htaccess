@@ -1,0 +1,90 @@
+# Apache .htaccess — SCNHS Website
+# InfinityFree / cPanel Apache compatible
+
+# ── Enable Rewrite Engine ───────────────────────────────────────────────────
+# Options -Indexes
+# Options +FollowSymLinks
+RewriteEngine On
+
+# ── Security Headers ────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    
+    # Advanced Content Security Policy (CSP) to prove legitimacy
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';"
+    
+    # Force HttpOnly and SameSite on cookies (Secure flag handled by PHP for production only)
+    Header edit Set-Cookie ^(.*)$ "$1; HttpOnly; SameSite=Strict"
+</IfModule>
+
+# 🔒 Force HTTPS (only on production — skip localhost and LAN devices)
+RewriteCond %{HTTP_HOST} !^localhost$ [NC]
+RewriteCond %{HTTP_HOST} !^127\. [NC]
+RewriteCond %{HTTP_HOST} !^192\.168\. [NC]
+RewriteCond %{HTTP_HOST} !^10\. [NC]
+RewriteCond %{HTTP_HOST} !^172\.(1[6-9]|2[0-9]|3[01])\. [NC]
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ── Clean URL Shortcut Routes ────────────────────────────────────────────
+# /login → student/login.html (hides internal folder structure)
+RewriteRule ^login/?$ student/login.html [L]
+
+# /admin-login → admin/login.html
+RewriteRule ^admin-login/?$ admin/login.html [L]
+
+# /register → online_registration.php
+RewriteRule ^register/?$ online_registration.php [L]
+
+# ── Remove .html extension from URLs ─────────────────────────────────────
+# Allows /about instead of /about.html, /blog instead of /blog.html, etc.
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# ── Remove .php extension from URLs ───────────────────────────────────────
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# ── Prevent access to sensitive files ─────────────────────────────────────
+<FilesMatch "\.(pkl|py|env|sql|md|yaml|git)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# ── Block access to config.php directly ──────────────────────────────────
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# ── Protect admin directory from direct file listing ─────────────────────
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+
+# ── Default error pages ───────────────────────────────────────────────────
+ErrorDocument 403 /index.php
+ErrorDocument 404 /index.php
+
+# ── Cache static assets for performance ──────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg   "access plus 1 month"
+    ExpiresByType image/jpeg  "access plus 1 month"
+    ExpiresByType image/png   "access plus 1 month"
+    ExpiresByType image/webp  "access plus 1 month"
+    ExpiresByType text/css    "access plus 1 week"
+    ExpiresByType text/javascript "access plus 1 week"
+</IfModule>
+
+# ── Compress text responses ───────────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/json
+</IfModule>

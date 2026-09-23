@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use | Santa Cruz National High School</title>
+    <meta name="description" content="Terms of Use of Santa Cruz National High School SHS.">
+    <link rel="shortcut icon" href="image/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="static/shs_main.css">
+    <link rel="stylesheet" href="static/style_index.css?v=2">
+    <style>
+        .policy-section {
+            padding: 100px 5vw 60px 5vw;
+            background: #f9f9ff;
+            min-height: 60vh;
+        }
+        .policy-container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .policy-container h1 {
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+        .policy-container h2 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .policy-container p, .policy-container li {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        .policy-container ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.php" class="nav-brand" aria-label="SCNHS Home">
+      <img src="image/logo.png" alt="SCNHS Logo">
+      <div class="nav-brand-text">
+        <div class="school-name">Santa Cruz NHS</div>
+        <div class="school-sub">Senior High School &middot; Davao Del Sur</div>
+      </div>
+    </a>
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links" role="menubar">
+      <a href="index.php" role="menuitem">Home</a>
+      <a href="index.php#about" role="menuitem">About</a>
+      <a href="index.php#programs" role="menuitem">Programs</a>
+      <a href="index.php#admissions" role="menuitem">Admissions</a>
+      <a href="blog.html" role="menuitem">News &amp; Events</a>
+      <a href="contact.html" role="menuitem">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="policy-section">
+    <div class="policy-container">
+        <h1>Terms of Use</h1>
+        <p><em>Last updated: September 23, 2026</em></p>
+        <p>Welcome to the Santa Cruz National High School (SCNHS) website. By accessing or using our website and portals, you agree to comply with and be bound by the following Terms of Use. Please review them carefully.</p>
+        
+        <h2>1. Acceptance of Terms</h2>
+        <p>By using this website, you accept these terms in full. If you disagree with any part of these terms, you must not use our website or its affiliated portals.</p>
+        
+        <h2>2. Use of the Website and Portals</h2>
+        <p>The student and admin portals are intended for authorized users only. You agree to use these services only for lawful educational purposes and in a way that does not infringe the rights of, restrict, or inhibit anyone else's use and enjoyment of the website.</p>
+        
+        <h2>3. User Accounts and Security</h2>
+        <ul>
+            <li>You are responsible for maintaining the confidentiality of your account credentials (e.g., LRN, passwords).</li>
+            <li>You must not share your login details with any unauthorized persons.</li>
+            <li>Any unauthorized access or misuse of the school's systems may result in disciplinary action and/or legal consequences.</li>
+        </ul>
+        
+        <h2>4. Intellectual Property Rights</h2>
+        <p>Unless otherwise stated, SCNHS owns the intellectual property rights in the website and material on the website. All these intellectual property rights are reserved.</p>
+        
+        <h2>5. Limitation of Liability</h2>
+        <p>SCNHS will not be liable for any indirect, special, or consequential loss or damage arising under these terms and conditions or in connection with our website, whether arising in tort, contract, or otherwise.</p>
+        
+        <h2>6. Changes to Terms</h2>
+        <p>We reserve the right to revise these terms at any time. Any modifications will be effective immediately upon posting to the website. Your continued use of the website following any changes signifies your acceptance of the updated terms.</p>
+    </div>
+</section>
+
+<footer>
+    <div class="copyright">
+        <p>Copyright @2026 All Rights Reserved | This Website made By: Adonie Jay Batcheril & ICT Department</p>
+    </div>
+</footer>
+
+<script>
+    const navbar = document.getElementById('navbar');
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      navbar.classList.toggle('scrolled', y > 10);
+      lastY = y;
+    }, { passive: true });
+</script>
+</body>
+</html>
